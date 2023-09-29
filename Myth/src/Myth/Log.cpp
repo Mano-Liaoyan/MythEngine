@@ -7,7 +7,7 @@ namespace Myth
 
 	void Log::Init()
 	{
-		spdlog::set_pattern("%^[%T](%t) %n: %v%$");
+		spdlog::set_pattern("%^[%T][%n][%l](%t): %v%$");
 		s_CoreLogger = spdlog::stdout_color_mt("MYTH-CORE");
 		s_CoreLogger->set_level(spdlog::level::trace);
 
