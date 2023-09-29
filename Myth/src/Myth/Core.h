@@ -10,8 +10,4 @@
 	#error Myth Only Support Windows For Now!
 #endif
 
-class Core
-{
-
-};
-
+#define BIT(x) (1 << (x))
