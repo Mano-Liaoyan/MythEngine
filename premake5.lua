@@ -11,6 +11,12 @@ workspace "MythEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Myth/vendor/GLFW/include"
+
+include "Myth/vendor/GLFW"
+
 project "Myth"
   location "Myth"
   kind "SharedLib"
@@ -18,6 +24,9 @@ project "Myth"
 
   targetdir ("bin/" .. outputdir .. "/%{prj.name}")
   objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+  pchheader "pch.h"
+  pchsource "Myth/src/pch.cpp"
 
   files
   {
@@ -28,7 +37,15 @@ project "Myth"
   includedirs
   {
     "%{prj.name}/src",
-    "%{prj.name}/vendor/spdlog/include"
+    "%{prj.name}/vendor/spdlog/include",
+    "%{IncludeDir.GLFW}"
+  }
+
+  links
+  {
+    "GLFW",
+    "opengl32.lib",
+    "dwmapi.lib"
   }
 
   filter "system:windows"
@@ -55,9 +72,11 @@ project "Myth"
     defines "MYTH_RELEASE"
     optimize "On"
 
+
   filter "configurations:Dist"
     defines "MYTH_DIST"
     optimize "On"
+
 
 project "Sandbox"
   location "Sandbox"
@@ -98,9 +117,11 @@ project "Sandbox"
     defines "MYTH_DEBUG"
     symbols "On"
 
+
   filter "configurations:Release"
     defines "MYTH_RELEASE"
     optimize "On"
+
 
   filter "configurations:Dist"
     defines "MYTH_DIST"

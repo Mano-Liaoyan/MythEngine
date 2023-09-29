@@ -10,4 +10,12 @@
 	#error Myth Only Support Windows For Now!
 #endif
 
+#ifdef MYTH_ENABLE_ASSERTS
+	#define MYTH_ASSERT(x, ...) { if(!(x))} { MYTH_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define MYTH_CORE_ASSERT(x, ...) { if(!(x))} { MYTH_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#else
+	#define MYTH_ASSERT(x, ...)
+	#define MYTH_CORE_ASSERT(x, ...)
+#endif
+
 #define BIT(x) (1 << (x))

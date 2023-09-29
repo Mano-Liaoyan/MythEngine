@@ -1,10 +1,7 @@
 #pragma once
 
-
+#include "pch.h"
 #include "Myth/Core.h"
-
-#include <string>
-#include <functional>
 
 namespace Myth
 {
